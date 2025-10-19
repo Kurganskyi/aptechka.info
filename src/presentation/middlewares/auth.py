@@ -38,7 +38,7 @@ class AuthMiddleware(BaseMiddleware):
             return await handler(event, data)
         
         # Проверяем, заблокирован ли пользователь
-        if telegram_user.id in settings.admin_telegram_ids:
+        if telegram_user.id in settings.admin_ids_list:
             # Админ - пропускаем все проверки
             data["is_admin"] = True
             data["user"] = None  # TODO: Получить пользователя из БД

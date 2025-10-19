@@ -91,7 +91,7 @@ async def admin_stats(message: Message, user: User):
                 reply_markup=back_to_menu_keyboard()
             )
         
-    except Exception as(as e:
+    except Exception as e:
         logger.error(f"Error in admin_stats: {e}")
         await message.answer("Произошла ошибка при получении статистики")
 

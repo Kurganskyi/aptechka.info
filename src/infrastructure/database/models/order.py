@@ -2,7 +2,7 @@
 Order SQLAlchemy model
 """
 
-from sqlalchemy import Column, BigInteger, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, BigInteger, Integer, String, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from .base import Base
 

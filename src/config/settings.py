@@ -12,7 +12,8 @@ class Settings(BaseSettings):
     
     # Telegram Bot
     bot_token: str = Field(..., env="BOT_TOKEN")
-    admin_telegram_ids: List[int] = Field(default_factory=list, env="ADMIN_TELEGRAM_IDS")
+    admin_telegram_ids: str = Field(default="", env="ADMIN_TELEGRAM_IDS")
+    admin_ids: Optional[str] = Field(default=None, env="ADMIN_IDS")  # Дополнительное поле для совместимости
     
     # Database
     database_url: str = Field(..., env="DATABASE_URL")
@@ -31,6 +32,7 @@ class Settings(BaseSettings):
     log_level: str = Field(default="INFO", env="LOG_LEVEL")
     webhook_host: Optional[str] = Field(default=None, env="WEBHOOK_HOST")
     webhook_port: int = Field(default=8080, env="WEBHOOK_PORT")
+    webhook_path: Optional[str] = Field(default=None, env="WEBHOOK_PATH")
     
     # External Services
     reviews_chat_url: str = Field(..., env="REVIEWS_CHAT_URL")
@@ -43,12 +45,6 @@ class Settings(BaseSettings):
     # Monitoring
     sentry_dsn: Optional[str] = Field(default=None, env="SENTRY_DSN")
     
-    @validator("admin_telegram_ids", pre=True)
-    def parse_admin_ids(cls, v):
-        """Парсинг списка ID админов из строки"""
-        if isinstance(v, str):
-            return [int(x.strip()) for x in v.split(",") if x.strip()]
-        return v
     
     @validator("allowed_hosts", pre=True)
     def parse_allowed_hosts(cls, v):
@@ -74,6 +70,17 @@ class Settings(BaseSettings):
     def is_development(self) -> bool:
         """Проверка development окружения"""
         return self.environment.lower() == "development"
+    
+    @property
+    def admin_ids_list(self) -> List[int]:
+        """Получение списка ID админов"""
+        if isinstance(self.admin_telegram_ids, str):
+            return [int(x.strip()) for x in self.admin_telegram_ids.split(",") if x.strip()]
+        elif isinstance(self.admin_telegram_ids, int):
+            return [self.admin_telegram_ids]
+        elif isinstance(self.admin_telegram_ids, list):
+            return self.admin_telegram_ids
+        return []
     
     class Config:
         env_file = ".env"
