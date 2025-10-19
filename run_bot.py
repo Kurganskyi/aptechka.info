@@ -11,8 +11,8 @@ from loguru import logger
 # Настройка переменных окружения
 os.environ['BOT_TOKEN'] = '8220071391:AAF3z2o1RC3m6yn6XiCUWX1fNcx9WH0EILA'
 os.environ['DATABASE_URL'] = 'postgresql+asyncpg://aptechka_user:aptechka_password@localhost:5432/aptechka_dev'
-os.environ['BEPAID_SHOP_ID'] = 'test_shop'
-os.environ['BEPAID_SECRET_KEY'] = 'test_key'
+os.environ['BEPAID_SHOP_ID'] = '361'  # Тестовый shop_id от bePaid
+os.environ['BEPAID_SECRET_KEY'] = 'b8647b68898b084d836474ed8d61ffe117c9a01168d867f24953b776ddcb134d'  # Тестовый secret_key от bePaid
 os.environ['BEPAID_API_URL'] = 'https://api.bepaid.by'
 os.environ['BEPAID_WEBHOOK_SECRET'] = 'test_webhook_secret'
 os.environ['ADMIN_TELEGRAM_IDS'] = '123456789,987654321'

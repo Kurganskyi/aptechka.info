@@ -4,7 +4,7 @@ bePaid API client
 
 import json
 from typing import Dict, Any, Optional
-from aiohttp import ClientSession
+from aiohttp import ClientSession, BasicAuth
 from loguru import logger
 
 from src.config.settings import settings
@@ -42,6 +42,18 @@ class BePaidClient:
         Returns:
             Ответ от bePaid API
         """
+        # Заглушка для тестирования (в development режиме)
+        if not settings.is_production:
+            logger.info("Using test payment stub for development")
+            # Имитируем успешный ответ от bePaid
+            return {
+                "checkout": {
+                    "redirect_url": f"https://t.me/{settings.bot_token.split(':')[0]}?start=payment_success_{order_id}",
+                    "token": f"test_token_{order_id}",
+                    "test": True
+                }
+            }
+        
         try:
             # Подготовка данных для запроса
             payment_data = {
@@ -73,7 +85,7 @@ class BePaidClient:
                 async with session.post(
                     f"{self.api_url}/beyag/payments",
                     json=payment_data,
-                    auth=(self.shop_id, self.secret_key),
+                    auth=BasicAuth(self.shop_id, self.secret_key),
                     headers={"Content-Type": "application/json"}
                 ) as response:
                     
@@ -100,11 +112,22 @@ class BePaidClient:
         Returns:
             Статус платежа
         """
+        # Заглушка для тестирования (в development режиме)
+        if not settings.is_production:
+            logger.info(f"Using test payment status stub for transaction: {transaction_id}")
+            return {
+                "transaction": {
+                    "status": "successful",
+                    "id": transaction_id,
+                    "test": True
+                }
+            }
+        
         try:
             async with ClientSession() as session:
                 async with session.get(
                     f"{self.api_url}/beyag/payments/{transaction_id}",
-                    auth=(self.shop_id, self.secret_key)
+                    auth=BasicAuth(self.shop_id, self.secret_key)
                 ) as response:
                     
                     if response.status == 200:
