@@ -1,0 +1,3 @@
+"""
+Repository interfaces - интерфейсы репозиториев
+"""

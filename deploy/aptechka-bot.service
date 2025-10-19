@@ -1,0 +1,27 @@
+[Unit]
+Description=Aptechka Telegram Bot
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/aptechka-bot
+ExecStart=/usr/bin/docker-compose -f docker-compose.prod.yml up -d
+ExecStop=/usr/bin/docker-compose -f docker-compose.prod.yml down
+ExecReload=/usr/bin/docker-compose -f docker-compose.prod.yml restart
+TimeoutStartSec=0
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+
+# User and group
+User=root
+Group=root
+
+# Environment
+Environment=COMPOSE_PROJECT_NAME=aptechka-bot
+
+[Install]
+WantedBy=multi-user.target
