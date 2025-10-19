@@ -10,7 +10,7 @@ from loguru import logger
 
 # Настройка переменных окружения
 os.environ['BOT_TOKEN'] = '8220071391:AAF3z2o1RC3m6yn6XiCUWX1fNcx9WH0EILA'
-os.environ['DATABASE_URL'] = 'postgresql://postgres:postgres@localhost:5432/aptechka'
+os.environ['DATABASE_URL'] = 'postgresql+asyncpg://aptechka_user:aptechka_password@localhost:5432/aptechka_dev'
 os.environ['BEPAID_SHOP_ID'] = 'test_shop'
 os.environ['BEPAID_SECRET_KEY'] = 'test_key'
 os.environ['BEPAID_API_URL'] = 'https://api.bepaid.by'

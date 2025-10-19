@@ -21,7 +21,6 @@ def create_bot() -> Bot:
         token=settings.bot_token,
         default=DefaultBotProperties(
             parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
         )
     )
 

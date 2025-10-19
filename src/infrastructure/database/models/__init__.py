@@ -9,6 +9,7 @@ from .test import TestResultModel
 from .faq import FAQItemModel
 from .timer import TimerModel
 from .user_action import UserActionModel
+from .user_question import UserQuestionModel
 from .broadcast import BroadcastMessageModel
 from .base import Base
 
@@ -22,5 +23,6 @@ __all__ = [
     "FAQItemModel",
     "TimerModel",
     "UserActionModel",
+    "UserQuestionModel",
     "BroadcastMessageModel",
 ]
