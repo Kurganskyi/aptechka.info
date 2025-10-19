@@ -40,15 +40,17 @@ def main_menu_keyboard(has_tripwire: bool = True) -> InlineKeyboardMarkup:
     if has_tripwire:
         buttons = [
             [
-                {"text": "🎥 Видео за 1 BYN", "callback_data": "tripwire_1byn"},
+                {"text": "💳 Оплатить за 1 BYN", "callback_data": "tripwire_1byn"},
+            ],
+            [
                 {"text": "📦 Варианты аптечек", "callback_data": "view_kits"},
-            ],
-            [
                 {"text": "👤 Обо мне", "callback_data": "about_me"},
-                {"text": "⭐ Отзывы", "callback_data": "reviews"},
             ],
             [
+                {"text": "⭐ Отзывы", "callback_data": "reviews"},
                 {"text": "❓ FAQ", "callback_data": "faq"},
+            ],
+            [
                 {"text": "🧠 Проверить знания!", "callback_data": "test_knowledge"},
             ]
         ]
