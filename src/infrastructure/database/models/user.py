@@ -26,6 +26,6 @@ class UserModel(Base):
     orders = relationship("OrderModel", back_populates="user", cascade="all, delete-orphan")
     user_products = relationship("UserProductModel", back_populates="user", cascade="all, delete-orphan")
     test_results = relationship("TestResultModel", back_populates="user", cascade="all, delete-orphan")
-    user_questions = relationship("UserQuestionModel", back_populates="user", cascade="all, delete-orphan")
+    user_questions = relationship("UserQuestionModel", back_populates="user", cascade="all, delete-orphan", foreign_keys="UserQuestionModel.user_id")
     timers = relationship("TimerModel", back_populates="user", cascade="all, delete-orphan")
     user_actions = relationship("UserActionModel", back_populates="user", cascade="all, delete-orphan")
